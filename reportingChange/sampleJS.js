@@ -23,7 +23,7 @@
         operation: "insert"
     }
 }
-*/
+
 let bigTree = {
     first : {
         dbRecords :[
@@ -35,6 +35,18 @@ let bigTree = {
             ]
             , operation: "insert",
             postAction:false
+    }
+}
+*/
+let bigTree = {
+    first : {
+        dbRecords :['channelstate', 'channelstatedesc', 'connectedlinenum', 'language'],
+        defaultToAdd: {
+            sanjeev: 'sharma',
+            mit: 'verma'
+        },
+    operation: "insert",
+    postAction:false
     }
 }
 

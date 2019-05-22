@@ -1,12 +1,12 @@
 const _ = require('lodash');
 //calledb(getToPas());
 const sampleJson = require('./sampleJson.json')
-const sampleJS   = require('./sampleJs')
+const sampleJS = require('./sampleJs')
 
 
 function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key))
             return false;
     }
     return true;
@@ -17,110 +17,151 @@ let itemToProcess = sampleJson[key]
 
 //console.log(sampleJson[key])
 let getA = [];
- for( var items in itemToProcess) {
-    
- 	let tempPass	=	getReturnJson(itemToProcess[items])
-  console.log('tempPass start')
+for (var items in itemToProcess) {
+
+    let tempPass = getReturnJson(itemToProcess[items])
+    console.log('tempPass start')
     getA.push(tempPass)
-   // console.log(tempPass);
+    // console.log(tempPass);
     console.log('tempPass end')
 
- }
+}
 
 //console.log(getA)
 function getReturnJson(tempGet) {
     let objToParse = sampleJS[tempGet];
 
-   // console.log(objToParse);
-    for( var jsonn in objToParse) {
-        //console.log(jsonn);
-        if(jsonn === "dbRecords")
-            createQuery(objToParse[jsonn])
-        //console.log(objToParse[jsonn])
+    let params = {}
+    let pickJson = null;
+   console.log(objToParse);
+
+   console.log("11111111111*************************")
+   console.log(_.pick(objToParse,"dbRecords"))
+   console.log(_.pick(objToParse,"defaultToAdd"))
+   console.log(_.pick(objToParse,"operation"))
+   console.log(_.pick(objToParse,"postAction"))
+   console.log("11111111111********************************")
+ 
+    for (var jsonn in objToParse) {
+        console.log(jsonn);
+        
+        if (jsonn === "dbRecords") {
+            //createQuery(objToParse[jsonn])
+            pickJson = _.pick(event, objToParse[jsonn]);
+            params['values']  =   pickJson;
+            console.log(pickJson)
+        }else if (jsonn === "defaultToAdd") {
+            console.log(objToParse[jsonn])
+            params['values']  =   _.merge(pickJson, objToParse[jsonn])
+
+        }else if (jsonn === "operation") {
+            
+            params['operation']  =   objToParse[jsonn];
+
+        }else {
+            console.log('no matching')
+        }
+
+       
     }
-// console.log(objToParse['dbRecords'])
+    console.log(params)
+    // console.log(objToParse['dbRecords'])
 
 
     return objToParse
 }
 
 function createQuery(input) {
-  console.log('#@#@#@#@#@#'+input.length);
+    console.log('#@#@#@#@#@#' + input);
+    return;
 
-let c , aa ,pickUPJson,addOnJson = null;
-    for (var p in input) {
-  //  console.log(input[p][0]['defaultKeys']);
-    //console.log(JSON.stringify(input[p]))
-     let keyToPickk = input[p];
-     console.log(_.pull(input[p],'defaultToAdd'));
-       console.log(keyToPickk)
-       console.log(p)
+    let c, aa, pickUPJson, addOnJson = null;
 
-   //  let keyToPickk = valueToPick[p]['defaultKeys'];
-    // for (var pp in keyToPickk) {
-     //   console.log('################')
+
+  //  for (var p in input) {
+        for (var p =0; p< input.length ; p ++ ) {
+            //  console.log(input[p][0]['defaultKeys']);
+        //console.log(JSON.stringify(input[p]))
+        let keyToPickk = input[p];
+        console.log(keyToPickk)
+                let temp = []
+            for( var pp in keyToPickk) {
+
+                temp.push(_.pick(event, keyToPickk[pp]));
+                // addOnJson = keyToPickk[1]['defaultToAdd'];
+
+            }
+        console.log(Array.isArray(keyToPickk))
+        console.log(temp)
+       // console.log(_.pull(input[p], 'defaultToAdd'));
+        //console.log(keyToPickk)
+        //console.log(p)
+
+        //  let keyToPickk = valueToPick[p]['defaultKeys'];
+        // for (var pp in keyToPickk) {
+        //   console.log('################')
         //console.log(keyToPickk[pp])
-    //     console.log('1111111111111111')
-         pickUPJson = _.pick(event, keyToPickk[0]['defaultKeys']);
-         addOnJson = keyToPickk[1]['defaultToAdd'];
-
-     //console.log(pickUPJson)
-         //c = _.merge(pickUPJson, keyToPickk[pp]['defaultToAdd']);
-        // console.log(_.flattenDeep(keyToPickk[pp]['defaultToAdd']))
-
+        //     console.log('1111111111111111')
        
 
-     //}
-     console.log('tooomerge');
+        //console.log(pickUPJson)
+        //c = _.merge(pickUPJson, keyToPickk[pp]['defaultToAdd']);
+        // console.log(_.flattenDeep(keyToPickk[pp]['defaultToAdd']))
 
-     console.log(addOnJson)
-     console.log(pickUPJson);
-console.log('tooomerge');
-     
-     if(!isEmpty(addOnJson)) {
-          for (var v in addOnJson) {
-            console.log(addOnJson[v])
-           aa  = _.merge(pickUPJson,addOnJson[v])
-       }
-         console.log(aa)
-        }else
-         console.log(pickUPJson)
-    // console.log(c)
-       }
+
+
+        //}
+        console.log('tooomerge');
+
+        console.log(addOnJson)
+        console.log(pickUPJson);
+        console.log('tooomerge');
+
+        if (!isEmpty(addOnJson)) {
+            for (var v in addOnJson) {
+                console.log(addOnJson[v])
+                aa = _.merge(pickUPJson, addOnJson[v])
+            }
+            console.log(aa)
+        } else
+            console.log(pickUPJson)
+        // console.log(c)
+    }
 
 }
 let valueToPick = [
     [{
         defaultKeys: ['channelstate', 'channelstatedesc', 'connectedlinenum', 'language']
     }, {
-        defaultToAdd: [{sanjeev: 'sharma'}, {mit: 'verma'}]
+        defaultToAdd: [{ sanjeev: 'sharma' }, { mit: 'verma' }]
     }],
     [{
         defaultKeys: [4, 5, 6]
-    }, {defaultToAdd: [{sanjeev: 'sharma'}, {amit: 'verma'}]
+    }, {
+        defaultToAdd: [{ sanjeev: 'sharma' }, { amit: 'verma' }]
     }],
 ]
 //console.log(valueToPick);
 for (var p in valueToPick) {
-   // console.log(valueToPick[p]);
-     let keyToPickk = valueToPick[p];
-   //  let keyToPickk = valueToPick[p]['defaultKeys'];
-     for (var pp in keyToPickk) {
-     	//console.log(keyToPickk[pp])
+    // console.log(valueToPick[p]);
+    let keyToPickk = valueToPick[p];
+    //  let keyToPickk = valueToPick[p]['defaultKeys'];
+    for (var pp in keyToPickk) {
+        //console.log(keyToPickk[pp])
 
-     }
+    }
 
-     let pickJson      = _.pick(event, valueToPick[p]['defaultKeys']);
+    let pickJson = _.pick(event, valueToPick[p]['defaultKeys']);
 
-   let defToAdd = valueToPick[p]['defToAdd'];
+    let defToAdd = valueToPick[p]['defToAdd'];
 
-   // console.log(keyToPickk);
- 
-   //console.log(pickJson);
+    // console.log(keyToPickk);
 
- }
+    //console.log(pickJson);
 
- function getToPas() {
+}
+
+function getToPas() {
     let toPass = {
         event: 'UserEvent',
         privilege: 'user,all',

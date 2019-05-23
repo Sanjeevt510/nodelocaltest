@@ -36,16 +36,22 @@ let bigTree = {
             , operation: "insert",
             postAction:false
     }
+	
+	        defaultToAdd: {
+            statickeys : ['channelstate','channelstatedesc','exit_mode'],
+            dynamic:{sanjeev: 'sharma',mit: 'verma'}
+        },
 }
 */
 let bigTree = {
-    first : {
+    first : { 
         dbRecords :['channelstate', 'channelstatedesc', 'connectedlinenum', 'language'],
         defaultToAdd: {
-            sanjeev: 'sharma',
-            mit: 'verma'
+			statickeys : ['channelstate','channelstatedesc','exit_mode'],
+            dynamic:{sanjeev: 'sharma',tigga_state_id: 'IF(tigga_state_id=100,104,IF(tigga_state_id=99,103,tigga_state_id))',local_date:'now()'}
         },
-    operation: "insert",
+    operation: "insert into table values set ?",
+    operation_type: "insert ",
     postAction:false
     }
 }

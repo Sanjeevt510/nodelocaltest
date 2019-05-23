@@ -32,10 +32,12 @@ function getReturnJson(tempGet) {
     let objToParse = sampleJS[tempGet];
 
     let params = {}
+    let finalPacketToProcess = {}
     let pickJson = null;
-   console.log(objToParse);
+    let valueArray =    [];
+   //console.log(objToParse);
 
-   console.log("11111111111*************************")
+   console.log("11111111111*************************"+Object.keys(objToParse));
    console.log(_.pick(objToParse,"dbRecords"))
    console.log(_.pick(objToParse,"defaultToAdd"))
    console.log(_.pick(objToParse,"operation"))
@@ -43,28 +45,55 @@ function getReturnJson(tempGet) {
    console.log("11111111111********************************")
  
     for (var jsonn in objToParse) {
-        console.log(jsonn);
+        //console.log(jsonn);
         
         if (jsonn === "dbRecords") {
-            //createQuery(objToParse[jsonn])
+          //  console.log(objToParse[jsonn])
             pickJson = _.pick(event, objToParse[jsonn]);
             params['values']  =   pickJson;
-            console.log(pickJson)
+            
+           // console.log(pickJson)
         }else if (jsonn === "defaultToAdd") {
-            console.log(objToParse[jsonn])
-            params['values']  =   _.merge(pickJson, objToParse[jsonn])
+            //console.log(objToParse[jsonn])
+            console.log('inside this loop start ');
+            let p1 =  _.pick(event,objToParse[jsonn]['statickeys']);
+            if(isEmpty(objToParse[jsonn]['statickeys']))
+            console.log('Object is empty '+objToParse[jsonn]['statickeys']);
+            else
+            console.log('Object is not empty '+objToParse[jsonn]['statickeys']);
+            
+            let p2 =  _.merge(objToParse[jsonn]['dynamic'],p1,pickJson);
+            // p1  =  _.pick(event,p1)
+            //console.log(Array.isArray(p1))
+            //console.log(p1)
+           // console.log(p2)
+           // finalPacketToProcess['query_value']   =  p2;
+            //p2.push[valueArray]
+            valueArray.push(p2)
+            console.log('inside this loop  end ')
+           // params['values']  =   _.merge(pickJson, objToParse[jsonn])
 
         }else if (jsonn === "operation") {
             
             params['operation']  =   objToParse[jsonn];
-
+            finalPacketToProcess['query_key']   =  objToParse[jsonn];
+          
+            
+            
+        }else if (jsonn === "operation_type") {
+            
+          
+            finalPacketToProcess['query_type']   =  objToParse[jsonn];
+            
+            
         }else {
             console.log('no matching')
         }
 
        
     }
-    console.log(params)
+    finalPacketToProcess['valueArray']  = valueArray;
+    console.log(finalPacketToProcess)
     // console.log(objToParse['dbRecords'])
 
 
@@ -113,8 +142,8 @@ function createQuery(input) {
         //}
         console.log('tooomerge');
 
-        console.log(addOnJson)
-        console.log(pickUPJson);
+      //  console.log(addOnJson)
+       // console.log(pickUPJson);
         console.log('tooomerge');
 
         if (!isEmpty(addOnJson)) {

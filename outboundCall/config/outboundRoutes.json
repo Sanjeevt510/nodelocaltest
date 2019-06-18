@@ -1,0 +1,7 @@
+{
+   		"domainToCall": "11",
+        "dadhiToCall": "nfo",
+        "voipToCall": ".0.0.0",
+        "httpport": "800",
+        
+    }

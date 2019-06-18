@@ -1,0 +1,24 @@
+agent kick off
+to kick off the agent after certain retries no in use and final
+
+bulkupload
+need to recheck as currenlty beng confustion
+
+callback
+for the outbound call or manul created ticket request
+
+callinqueue
+this is being called from php process once the agent is free to accept the call
+
+esclation
+for manager / internal / external /recording / internalP / outboundTrans
+
+localtest
+for testing only
+
+outboundcall
+need to check if this is working or not
+
+spyCaller
+to spy calls between the call and agent by the manager
+

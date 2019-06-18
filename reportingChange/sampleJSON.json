@@ -1,5 +1,6 @@
 {
-    "huntoperator2connect":["first"],
+    "huntoperator2connect":["first","second"],
     "initcall":["second","five"],
     "timelines":["four","six"]
 }
+

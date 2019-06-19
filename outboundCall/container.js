@@ -16,6 +16,8 @@ simpleDependencise.forEach(function(val){
 });
 
 container.load(path.join(__dirname,'controllers'));
+container.load(path.join(__dirname,'api/routes'));
+container.load(path.join(__dirname,'api/middleware'));
 container.load(path.join(__dirname,'helpers'));
 container.load(path.join(__dirname,'config'));
 

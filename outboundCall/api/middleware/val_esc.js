@@ -11,6 +11,8 @@ module.exports = function myauth(_,Joi,reqValidataion) {
 		},
 		setCustomHeaders : function ( req, res, next) {
            
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:7867');
+            res.setHeader('Access-Control-Allow-Origin', 'http://tonic.backend');
             let validRequest  =   ['manager','internal','external','recording','internalP','outboundTrans'];
             let requestFor    = req.params.rtype;
             if (!(_.includes(validRequest, requestFor))) {
@@ -28,8 +30,7 @@ module.exports = function myauth(_,Joi,reqValidataion) {
                return res.status(200).json(validationResult)
            }
 
-			res.setHeader('Access-Control-Allow-Origin', 'http://localhost:7867');
-            res.setHeader('Access-Control-Allow-Origin', 'http://tonic.backend');
+			
             next();
 		}
 	}

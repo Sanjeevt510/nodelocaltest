@@ -32,8 +32,7 @@ module.exports = function(_, queryBuilder) {
                         'message_id': ticketParams.actionid,
                         'message_type': param1,
                         'message_forwarder': JSON.stringify(_.pick(ticketParams,['agent_id','ticket_auto_id','callback_auto_id','retry_counter'])) || 'error',
-                        'app_uniq_key': ticketParams.agent_id,
-                        
+                        'app_uniq_key': ticketParams.agent_id,    
                         
                     }
                 };

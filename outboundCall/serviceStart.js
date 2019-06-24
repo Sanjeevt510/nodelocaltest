@@ -7,7 +7,7 @@ const logger = require('./config/logger.js');
 const container     =    require('./container');
 //const {localfunction}  = require('./helpers/multifunction');
 
-container.resolve(function(bulkupload,localtest,callback,ccallback,escalation,eescalation,callinqueue,agentkickoff,outboundcall,spyCaller){
+container.resolve(function(bulkupload,localtest,callback,ccallback,originateresponse,eescalation,escalation,callinqueue,agentkickoff,outboundcall,spyCaller){
 const app = setupExpress();
 
 function setupExpress() {
@@ -35,6 +35,8 @@ try {
     agentkickoff.SetRouting(router);
     outboundcall.SetRouting(router);
     spyCaller.SetRouting(router);
+    originateresponse.SetRouting(router);
+    
 
     
     app.use(router);

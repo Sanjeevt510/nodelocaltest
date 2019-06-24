@@ -5,6 +5,8 @@ module.exports = function myauth(_,Joi,reqValidataion) {
 
 		setCustomHeaders : function ( req, res, next) {
 
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:7867');
+            res.setHeader('Access-Control-Allow-Origin', 'http://tonic.backend');
 
             const schema = {
                 agent_id: Joi.number().integer().required(),
@@ -16,11 +18,6 @@ module.exports = function myauth(_,Joi,reqValidataion) {
                 console.log(validationResult);
                 return res.status(200).json(validationResult)
             }
-
-
-
-			res.setHeader('Access-Control-Allow-Origin', 'http://localhost:7867');
-            res.setHeader('Access-Control-Allow-Origin', 'http://tonic.backend');
             next();
 		}
 	}

@@ -40,16 +40,17 @@ module.exports = function(_, Joi, reqValidataion, multifunction, pbxcoupling, re
                 var parseColumn = JSON.parse(callbackResponse['message_forwarder']);
                 let localdata = {};
                 if (reqStatus['reason'] === "5") {
-                    // console.log('Boom Logout forcefully  ::' + parseColumn['ticket_auto_id']);
+                    // 5 means handset problem force logout the agent 
+                    //console.log('Boom Logout forcefully  ::' + parseColumn['ticket_auto_id']);
                     localdata['message'] = 'Logged out by the system as phone seems to be off hook',
-                        localdata['tigga_user_id'] = parseColumn['agent_id'];
+                    localdata['tigga_user_id'] = parseColumn['agent_id'];
                     localdata['type'] = 'FLASH'
                     multifunction.notification(localdata);
                     multifunction.del_notification(localdata);
                 } else if (parseColumn['retry_counter'] >= 2) {
                     //   console.log('Boom Logout Max Counter Reached   ::' + parseColumn['ticket_auto_id']);
                     localdata['message'] = 'Logged out by the system as maximum numbers of calls were not answered',
-                        localdata['tigga_user_id'] = parseColumn['agent_id'];
+                    localdata['tigga_user_id'] = parseColumn['agent_id'];
                     localdata['type'] = 'FLASH'
                     multifunction.notification(localdata);
                     multifunction.del_notification(localdata);
@@ -63,38 +64,8 @@ module.exports = function(_, Joi, reqValidataion, multifunction, pbxcoupling, re
             return res.json({
                 message: "This function is currenlty not live Wait / contact adminstrato"
             });
-            /*
-
-                        updateFlage(req.body)
-                        .then(response => {
-                            console.log('res of update flagggg');
-                        })
-                        .catch(err => {
-                            console.log('error')
-                        });
-
-                        async function updateFlage(getParams) {
-
-                            try {
-                                
-                        let toPickResult =  ['action_table','set_column','set_column_val','where_column','where_column_val'];
-                           const selectResul  = await multifunction.originate_data(getParams,toPickResult);
-
-                           let objToPAss    =   _.pick(selectResul[0],toPickResult);
-                           
-
-                            const updateResult = await multifunction.originate_action(objToPAss);
-
-                        } catch (error) {
-                        console.log(error);
-                        }
-
-                        }
-                        return res.json({
-                            message: `This function is currenlty not live Wait / contact adminstrator`
-                        });
-
-                        */
+         
+                      
         },
         upload: (req, res) => {
             const schema = {

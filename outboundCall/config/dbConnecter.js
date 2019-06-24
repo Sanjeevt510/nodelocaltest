@@ -4,12 +4,12 @@ var mysql = require('mysql')
 
 var pool = mysql.createPool({
     "connectionLimit": 10,
-    //"host": "localhost",
-    //"user": "root",
-    //"password": "",
-    "host": "192.168.0.120",
-    "user": "nodeaPP",
-    "password": "deV_nodE@2067@",
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+   // "host": "192.168.0.120",
+   // "user": "nodeaPP",
+    //"password": "deV_nodE@2067@",
     "database": "tiggacomdesk_dev"
 })
 pool.getConnection((err, connection) => {

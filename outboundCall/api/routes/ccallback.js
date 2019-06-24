@@ -1,7 +1,7 @@
 
 'use strict'
 
-module.exports = function (_, val_call, reqValidataion, multifunction, pbxcoupling, responseMessage,auth,multiinsert) {
+module.exports = function (_, val_call,events, ticketstatus,reqValidataion,agentstatus, multifunction, pbxcoupling, responseMessage,auth,multiinsert) {
 
     return {
         SetRouting: function (router) {
@@ -14,8 +14,16 @@ module.exports = function (_, val_call, reqValidataion, multifunction, pbxcoupli
         callbackprocess: (req, res) => {
     
            //console.log(req.body);
-                    
-             res.json('this is the /tiggadesk/ccallback response :'+req.params.rtype + '--' +new Date());
+           let eventEmitter = new events.EventEmitter();
+           eventEmitter.emit('scream');       
+           ticketstatus.isValidTicket(req.body)
+           .then(dbresult => {
+            console.log('this is the result of select scream query',dbresult)
+           })
+           .catch(error => {
+               console.log('error in the select query',error)
+           })
+             res.json('this is the /tiggadesk/ccallback response :'+req.body + '--' +new Date());
              return;
         
 

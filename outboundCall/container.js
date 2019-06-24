@@ -6,7 +6,8 @@ const simpleDependencise = [
     ['_','lodash'],
     ['Joi','joi'],
     ['uniqid','uniqid'],
-    ['moment','moment']
+    ['moment','moment'],
+    ['events','events']
 ];
 
 simpleDependencise.forEach(function(val){

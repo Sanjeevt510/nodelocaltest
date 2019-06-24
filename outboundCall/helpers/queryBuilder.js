@@ -47,6 +47,21 @@ module.exports = function (dbConnecter) {
                         }
                     });
             });
+        }, _selectObject: function (sQuery,sObject) {
+           
+            return new Promise((resolve, reject) => {    
+                
+               console.log(sQuery);
+               console.log(sObject);
+                    dbConnecter.query(sQuery,[sObject], function (err, dbresultSet) {
+                        
+                        if (err) {
+                           reject(err);
+                        } else {
+                        resolve(dbresultSet);
+                        }
+                    });
+            });
         },
         _updateResultSet: function (updateQuery) {
            

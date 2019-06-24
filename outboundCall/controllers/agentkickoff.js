@@ -12,8 +12,10 @@ module.exports = function(multifunction, multiupdate, multiinsert, wlogger, mome
         kickagent: (req, res) => {
             let retryc = null;
             //console.log(req.method);
-            if (req.method === "GET") retryc = req.query.retry;
+            if (req.method === "GET") 
+            retryc = req.query.retry;
             else retryc = req.body.retry;
+            
             let agentPacket = {
                 agent_id: req.params.agentid,
                 agent_retry: retryc,

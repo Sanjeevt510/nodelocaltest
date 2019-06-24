@@ -56,7 +56,7 @@ module.exports = function(_, Joi, reqValidataion, multifunction, pbxcoupling, re
                 } else {
                     //  console.log('Boom just reset the flag of the user as free   ::' + parseColumn['agent_id']);
                     localdata['set_column_val'] = 0,
-                        localdata['where_column_val'] = parseColumn['agent_id'];
+                    localdata['where_column_val'] = parseColumn['agent_id'];
                     multifunction.originate_action(localdata);
                 }
             }

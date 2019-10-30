@@ -11,7 +11,7 @@
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
     "joi": "^14.3.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "lower-case": "^1.1.4",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.23",
